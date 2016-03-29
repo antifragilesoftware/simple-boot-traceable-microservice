@@ -1,5 +1,7 @@
 package com.russmiles.antifragilesoftware.samples;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableDiscoveryClient
 public class SimpleBootTraceableMicroserviceApplication {
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     @Bean
     public AlwaysSampler defaultSampler() {
         return new AlwaysSampler();
@@ -20,7 +24,9 @@ public class SimpleBootTraceableMicroserviceApplication {
 
     @RequestMapping("/")
     public String home() {
-        return this.toString() + " instance saying: Hello Microservice World";
+        log.info("Root URL invoked");
+
+        return this.toString() + " instance saying: Hello Microservice World\n";
     }
 
     public static void main(String[] args) {
